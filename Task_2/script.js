@@ -1,41 +1,38 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const taskInput = document.getElementById('taskInput');
-  const addTaskBtn = document.getElementById('addTaskBtn');
-  const taskList = document.getElementById('taskList');
+const taskInput = document.getElementById("taskInput");
+const taskList = document.getElementById("taskList");
 
-  addTaskBtn.addEventListener('click', function() {
-      const taskText = taskInput.value.trim();
-      if (taskText !== '') {
-          addTask(taskText);
-          taskInput.value = '';
-      }
-  });
+function addTask(){
+    if(taskInput.value === ''){
+        alert("Task Can't be empty!!!");
+    }
+    else{
+        let li = document.createElement("li");
+        li.innerHTML = taskInput.value;
+        taskList.appendChild(li);
+        let span = document.createElement("span");
+        span.innerHTML = "\u00d7";
+        li.appendChild(span)
+    }
+    taskInput.value = "";
+    saveData();
+}
 
-  taskList.addEventListener('click', function(event) {
-      if (event.target.tagName === 'LI') {
-          toggleTaskCompletion(event.target);
-      } else if (event.target.classList.contains('delete-btn')) {
-          deleteTask(event.target.parentElement);
-      }
-  });
+taskList.addEventListener("click",function(e){
+    if (e.target.tagName === "LI"){
+        e.target.classList.toggle("completed");
+        saveData();
+    }
+    else if(e.target.tagName === "SPAN"){
+        e.target.parentElement.remove();
+        saveData();
+    }
+}, false);
 
-  function addTask(taskText) {
-      const li = document.createElement('li');
-      li.textContent = taskText;
+function saveData(){
+    localStorage.setItem("data",taskList.innerHTML);
+}
 
-      const deleteButton = document.createElement('button');
-      deleteButton.textContent = 'Delete';
-      deleteButton.classList.add('delete-btn');
-
-      li.appendChild(deleteButton);
-      taskList.appendChild(li);
-  }
-
-  function toggleTaskCompletion(task) {
-      task.classList.toggle('completed');
-  }
-
-  function deleteTask(task) {
-      task.remove();
-  }
-});
+function showTask(){
+    taskList.innerHTML = localStorage.getItem("data");
+}
+showTask();

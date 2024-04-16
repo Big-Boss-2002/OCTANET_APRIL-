@@ -10,10 +10,23 @@
 
 <body>
     <div class="container">
-        <h1>Todo List</h1>
-        <input type="text" id="taskInput" placeholder="Enter task...">
-        <button id="addTaskBtn">Add Task</button>
-        <ul id="taskList"></ul>
+        <div class="to_do_list">
+            <h1>
+                Todo List
+                <img src="assets/icon.png" alt="Icon image">
+            </h1>
+            <div class="row">
+                <input type="text" id="taskInput" placeholder="Enter task...">
+                <button onclick="addTask()">Add Task</button>
+            </div>
+            <ul id="taskList">
+                
+            </ul>
+
+        </div>
+        
+        
+        
     </div>
 
     <script src="script.js"></script>
